@@ -185,6 +185,17 @@ httpd/conf.d/shib.conf: |-
       ProxyPassReverse {{ .Values.upstreamURL }}/
     </Location>
 
+    # /img を許可
+    <Location ~ "^/img/.*$">
+      Satisfy Any
+      Allow from all
+      AuthType none
+      Require all granted
+      ProxyPass !
+      ProxyPassReverse !
+    </Location>
+
+
     <Location /Shibboleth.sso>
       ProxyPass !
       SetHandler shib
